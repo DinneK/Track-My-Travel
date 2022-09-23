@@ -7,14 +7,13 @@ import Traveler from "../src/classes/Traveler";
 import dayjs from "dayjs";
 
 describe("TripsRepo", () => {
-  let trips, traveler1, traveler2, traveler3, now;
+  let trips, traveler1, traveler2, traveler3;
 
   beforeEach(() => {
     trips = new TripsRepo(mockTripsData);
     traveler1 = new Traveler(mockTravelersData[0]);
     traveler2 = new Traveler(mockTravelersData[5]);
     traveler3 = new Traveler(mockTravelersData[7]);
-    now = dayjs();
   });
 
   it("should instantiate a new instance of TripsRepo", () => {
@@ -251,7 +250,9 @@ describe("TripsRepo", () => {
   });
 
   it("should return all past trips for a traveler", () => {
-    expect(trips.returnPastTrips(traveler1.travelerID)).to.deep.equal([
+    expect(
+      trips.returnPastTrips(traveler1.travelerID, "2022/10/14")
+    ).to.deep.equal([
       {
         id: 6,
         userID: 1,
@@ -273,7 +274,9 @@ describe("TripsRepo", () => {
         suggestedActivities: [],
       },
     ]);
-    expect(trips.returnPastTrips(traveler2.travelerID)).to.deep.equal([
+    expect(
+      trips.returnPastTrips(traveler2.travelerID, "2022/10/14")
+    ).to.deep.equal([
       {
         id: 14,
         userID: 6,
@@ -288,8 +291,12 @@ describe("TripsRepo", () => {
   });
 
   it("should return all upcoming trips for a traveler", () => {
-    expect(trips.returnUpcomingTrips(traveler1.travelerID)).to.deep.equal([]);
-    expect(trips.returnUpcomingTrips(traveler2.travelerID)).to.deep.equal([
+    expect(
+      trips.returnUpcomingTrips(traveler1.travelerID, "2022/10/14")
+    ).to.deep.equal([]);
+    expect(
+      trips.returnUpcomingTrips(traveler2.travelerID, "2022/10/14")
+    ).to.deep.equal([
       {
         id: 12,
         userID: 6,
@@ -310,9 +317,6 @@ describe("TripsRepo", () => {
   // });
 
   it("should return trips on any given day", () => {
-    // let now = dayjs();
-    console.log(now.format());
-    console.log(dayjs().$y);
     expect(trips.findTripsByDate("2022/10/14")).to.deep.equal([
       {
         id: 2,
