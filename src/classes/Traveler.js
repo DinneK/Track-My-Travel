@@ -5,9 +5,9 @@ class Traveler {
     this.travelerType = travelerInfo.travelerType;
   }
 
-  returnATravelerFirstName = () => {
+  returnATravelerFirstName() {
     return this.name.split(" ")[0];
-  };
+  }
 }
 
 export default Traveler;
