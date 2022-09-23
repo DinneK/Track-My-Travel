@@ -1,3 +1,5 @@
+import dayjs from "dayjs";
+
 class TripsRepo {
   constructor(tripsInfo) {
     this.trips = tripsInfo;
@@ -11,30 +13,34 @@ class TripsRepo {
     return this.trips.filter((trips) => trips.userID === travelerID);
   }
 
-  returnPastTrips(travelerID) {
+  returnPastTrips(travelerID, date) {
     return this.findAllTripsTakenByTraveler(travelerID).filter(
-      (trips) => trips.status === "approved"
+      (trips) => dayjs(trips.date).$d < dayjs(date).$d
     );
   }
 
-  returnUpcomingTrips(travelerID) {
+  returnUpcomingTrips(travelerID, date) {
     return this.findAllTripsTakenByTraveler(travelerID).filter(
-      (trips) => trips.status === "pending"
+      (trips) => dayjs(trips.date).$d >= dayjs(date).$d
     );
   }
 
   // returnAllOfLastYearsTrips(travelerID, date) {
-  //   console.log({ travelerID });
-  //   console.log({ date });
-  //   const aDate = date.split("/");
-  //   let year = aDate[0];
-  //   let month = aDate[1];
-  //   let day = aDate[2];
-  //   console.log({ aDate });
-  //   console.log(parseFloat(year) - 1);
-  //   console.log({ month });
-  //   console.log({ day });
+  //   // let now = dayjs();
+  //   // console.log({ now });
+  //   // console.log("nowDate", now.format(date));
+  //   console.log("year", dayjs(date).$y);
+  //   console.log("month", dayjs(date).$M + 1);
+  //   console.log("day", dayjs(date).$D);
   // }
+
+  //return all of a users trips
+  //select a date
+  //if the dates of trips in the users array of trips are before the chosen date
+  //return past trips
+  //if the dates of trips are after a the date
+  //return upcoming
+  //if trips are pending return to pending
 
   findTripsByDate(date) {
     return this.trips.filter((trips) => trips.date === date);
@@ -42,3 +48,15 @@ class TripsRepo {
 }
 
 export default TripsRepo;
+
+// const calculateTravelCostThisYear = () => {
+//   let sum = 0;
+//   usersTrips.trips.forEach((trip) => {
+//     if(dayjs(trip.date).year() === dayjs().year()) {
+//       let lodging = ((trip.travelers)*(trip.destination.lodgingCost))*trip.duration;
+//       let flights = (trip.travelers*trip.destination.flightCost);
+//       sum += (lodging+flights)+((lodging+flights)*.10);
+//     }
+//   })
+//   showTotalCost(sum);
+// }

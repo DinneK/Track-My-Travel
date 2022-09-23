@@ -7,9 +7,9 @@ body {
 
 .title-card {
   align-items: center;
-  background-color: #21405252;
+  background-color: #2140527a;
   border-radius: 22px;
-  box-shadow: 1px 5px 50px -9px rgb(0 0 0);
+  box-shadow: 1px 5px 50px -15px rgb(0 0 0);
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -24,7 +24,7 @@ h1 {
   text-shadow: 0 4px 4px rgb(0 0 0 / 0.5);
 }
 
-h3 {
+h2 {
   font-family: 'Italianno', cursive;
   font-size: 2.5em;
   font-weight: 200;
