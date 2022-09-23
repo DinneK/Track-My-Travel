@@ -16,9 +16,6 @@ describe("Destination", () => {
   });
 
   it("should have an ID for each destination", () => {
-    // console.log({ destination1 });
-    // console.log({ destination2 });
-    // console.log({ mockDestinationsData });
     expect(destination1.destinationID).to.equal(1);
     expect(destination2.destinationID).to.equal(5);
   });
