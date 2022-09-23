@@ -4,15 +4,17 @@ import mockTravelersData from "../src/data/mockTravelersData";
 import TripsRepo from "../src/classes/TripsRepo";
 import Trip from "../src/classes/Trip";
 import Traveler from "../src/classes/Traveler";
+import dayjs from "dayjs";
 
 describe("TripsRepo", () => {
-  let trips, traveler1, traveler2, traveler3;
+  let trips, traveler1, traveler2, traveler3, now;
 
   beforeEach(() => {
     trips = new TripsRepo(mockTripsData);
     traveler1 = new Traveler(mockTravelersData[0]);
     traveler2 = new Traveler(mockTravelersData[5]);
     traveler3 = new Traveler(mockTravelersData[7]);
+    now = dayjs();
   });
 
   it("should instantiate a new instance of TripsRepo", () => {
@@ -308,6 +310,9 @@ describe("TripsRepo", () => {
   // });
 
   it("should return trips on any given day", () => {
+    // let now = dayjs();
+    console.log(now.format());
+    console.log(dayjs().$y);
     expect(trips.findTripsByDate("2022/10/14")).to.deep.equal([
       {
         id: 2,
