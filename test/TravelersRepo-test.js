@@ -10,18 +10,17 @@ describe("TravelersRepo", () => {
     travelers = new TravelersRepo(mockTravelersData);
     traveler1 = new Traveler(mockTravelersData[0]);
     traveler2 = new Traveler(mockTravelersData[5]);
-    traveler3;
   });
 
   it("should instantiate a new instance of TraverlersRepo", () => {
     expect(travelers).to.be.an.instanceOf(TravelersRepo);
   });
 
-  it("should have an array of travelers", () => {
+  it("should have an list of travelers", () => {
     expect(travelers.travelers).to.deep.equal([
       { id: 1, name: "Ham Leadbeater", travelerType: "relaxer" },
       { id: 2, name: "Rachael Vaughten", travelerType: "thrill-seeker" },
-      { id: 3, name: "Sibby Dawidowitsch", travelerType: "shopper" },
+      { id: 3, name: "Sibby Dawidowitsch", travelerType: "foodie" },
       { id: 4, name: "Leila Thebeaud", travelerType: "photographer" },
       { id: 5, name: "Tiffy Grout", travelerType: "thrill-seeker" },
       { id: 6, name: "Laverna Flawith", travelerType: "shopper" },

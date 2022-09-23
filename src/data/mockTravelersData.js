@@ -12,7 +12,7 @@ const mockTravelersData = [
   {
     id: 3,
     name: "Sibby Dawidowitsch",
-    travelerType: "shopper",
+    travelerType: "foodie",
   },
   {
     id: 4,
