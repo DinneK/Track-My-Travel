@@ -25,38 +25,24 @@ class TripsRepo {
     );
   }
 
-  // returnAllOfLastYearsTrips(travelerID, date) {
-  //   // let now = dayjs();
-  //   // console.log({ now });
-  //   // console.log("nowDate", now.format(date));
-  //   console.log("year", dayjs(date).$y);
-  //   console.log("month", dayjs(date).$M + 1);
-  //   console.log("day", dayjs(date).$D);
-  // }
-
-  //return all of a users trips
-  //select a date
-  //if the dates of trips in the users array of trips are before the chosen date
-  //return past trips
-  //if the dates of trips are after a the date
-  //return upcoming
-  //if trips are pending return to pending
-
   findTripsByDate(date) {
     return this.trips.filter((trips) => trips.date === date);
+  }
+
+  calculateCostsForPastYear(destinations, travelerID, date) {
+    const pastTrips = this.returnPastTrips(travelerID, date);
+    return pastTrips.reduce((acc, curr) => {
+      destinations.forEach((destination) => {
+        if (destination.destinationID === curr.destinationID) {
+          acc +=
+            (destination.estimatedLodgingCostPerDay * curr.duration +
+              destination.estimatedFlightCostPerPerson * curr.travelers) *
+            1.1;
+        }
+      });
+      return acc;
+    }, 0);
   }
 }
 
 export default TripsRepo;
-
-// const calculateTravelCostThisYear = () => {
-//   let sum = 0;
-//   usersTrips.trips.forEach((trip) => {
-//     if(dayjs(trip.date).year() === dayjs().year()) {
-//       let lodging = ((trip.travelers)*(trip.destination.lodgingCost))*trip.duration;
-//       let flights = (trip.travelers*trip.destination.flightCost);
-//       sum += (lodging+flights)+((lodging+flights)*.10);
-//     }
-//   })
-//   showTotalCost(sum);
-// }
