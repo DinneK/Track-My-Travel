@@ -1,19 +1,29 @@
 import { expect } from "chai";
+import mockDestinationsData from "../src/data/mockDestinationsData";
 import mockTripsData from "../src/data/mockTripsData";
 import mockTravelersData from "../src/data/mockTravelersData";
+import DestinationsRepo from "../src/classes/DestinationsRepo";
+import Destination from "../src/classes/Destination";
 import TripsRepo from "../src/classes/TripsRepo";
-import Trip from "../src/classes/Trip";
+// import Trip from "../src/classes/Trip";
 import Traveler from "../src/classes/Traveler";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 
 describe("TripsRepo", () => {
-  let trips, traveler1, traveler2, traveler3;
+  let trips,
+    traveler1,
+    traveler2,
+    // traveler3,
+    destinations;
+  // destination1,
+  // destination2;
 
   beforeEach(() => {
     trips = new TripsRepo(mockTripsData);
     traveler1 = new Traveler(mockTravelersData[0]);
     traveler2 = new Traveler(mockTravelersData[5]);
-    traveler3 = new Traveler(mockTravelersData[7]);
+    // traveler3 = new Traveler(mockTravelersData[7]);
+    destinations = new DestinationsRepo(mockDestinationsData);
   });
 
   it("should instantiate a new instance of TripsRepo", () => {
@@ -310,12 +320,6 @@ describe("TripsRepo", () => {
     ]);
   });
 
-  // it("should return all of a travelers trips for the past year", () => {
-  //   expect(
-  //     trips.returnAllOfLastYearsTrips(traveler1.travelerID, "2022/09/16")
-  //   ).to.deep.equal([]);
-  // });
-
   it("should return trips on any given day", () => {
     expect(trips.findTripsByDate("2022/10/14")).to.deep.equal([
       {
@@ -361,5 +365,26 @@ describe("TripsRepo", () => {
         suggestedActivities: [],
       },
     ]);
+  });
+
+  it("should return the total amount spent on trips for the previous year", () => {
+    destinations = mockDestinationsData.map(
+      (destination) => new Destination(destination)
+    );
+
+    expect(
+      trips.calculateCostsForPastYear(
+        destinations,
+        traveler1.travelerID,
+        "2022/10/14"
+      )
+    ).to.equal(5885);
+    expect(
+      trips.calculateCostsForPastYear(
+        destinations,
+        traveler2.travelerID,
+        "2022/10/14"
+      )
+    ).to.equal(2475);
   });
 });
