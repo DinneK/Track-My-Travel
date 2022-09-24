@@ -2,7 +2,7 @@ import { expect } from "chai";
 import mockDestinationsData from "../src/data/mockDestinationsData";
 import mockTripsData from "../src/data/mockTripsData";
 import mockTravelersData from "../src/data/mockTravelersData";
-import DestinationsRepo from "../src/classes/DestinationsRepo";
+// import DestinationsRepo from "../src/classes/DestinationsRepo";
 import Destination from "../src/classes/Destination";
 import TripsRepo from "../src/classes/TripsRepo";
 // import Trip from "../src/classes/Trip";
@@ -23,7 +23,7 @@ describe("TripsRepo", () => {
     traveler1 = new Traveler(mockTravelersData[0]);
     traveler2 = new Traveler(mockTravelersData[5]);
     // traveler3 = new Traveler(mockTravelersData[7]);
-    destinations = new DestinationsRepo(mockDestinationsData);
+    // destinations = new DestinationsRepo(mockDestinationsData);
   });
 
   it("should instantiate a new instance of TripsRepo", () => {
