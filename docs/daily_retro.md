@@ -51,5 +51,21 @@
 - Challenges
   * Not beating myself up.
 
+### Friday 9.23.2022
+- Completed:
+  * Methods for past trips, future trips total costs
+  * Installed Day.js
+  * Created Agent class (not being used)
+
+- To Do Tomorrow:
+  * import Glide.js
+  * Fetch and POST
+  * Section for displaying totals
+
+- Wins:
+  * Figuring out the Day.js
+
+- Challenges
+  * Going slow than I expect.
 
      
