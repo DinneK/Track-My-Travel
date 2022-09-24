@@ -5,7 +5,7 @@ class Traveler {
     this.travelerType = travelerInfo.travelerType;
   }
 
-  returnATravelerFirstName() {
+  returnTravelerFirstName() {
     return this.name.split(" ")[0];
   }
 }
