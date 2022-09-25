@@ -111,9 +111,7 @@ describe("DestinationsRepo", () => {
   });
 
   it("should return a destination by its ID", () => {
-    expect(
-      destinations.findDestinationByItsID(destination1.destinationID)
-    ).to.deep.equal({
+    expect(destinations.findDestinationByItsID(destination1.id)).to.deep.equal({
       id: 1,
       destination: "Lima, Peru",
       estimatedLodgingCostPerDay: 70,
@@ -122,9 +120,7 @@ describe("DestinationsRepo", () => {
         "https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80",
       alt: "overview of city buildings with a clear sky",
     });
-    expect(
-      destinations.findDestinationByItsID(destination2.destinationID)
-    ).to.deep.equal({
+    expect(destinations.findDestinationByItsID(destination2.id)).to.deep.equal({
       id: 9,
       destination: "Amsterdam, Netherlands",
       estimatedLodgingCostPerDay: 100,

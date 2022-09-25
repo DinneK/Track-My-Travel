@@ -16,8 +16,8 @@ describe("Destination", () => {
   });
 
   it("should have an ID for each destination", () => {
-    expect(destination1.destinationID).to.equal(1);
-    expect(destination2.destinationID).to.equal(5);
+    expect(destination1.id).to.equal(1);
+    expect(destination2.id).to.equal(5);
   });
 
   it("should have a name for each destination", () => {
