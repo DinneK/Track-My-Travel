@@ -303,10 +303,28 @@ describe("TripsRepo", () => {
   it("should return all upcoming trips for a traveler", () => {
     expect(
       trips.returnUpcomingTrips(traveler1.travelerID, "2022/10/14")
-    ).to.deep.equal([]);
+    ).to.deep.equal("You have no upcoming trips");
     expect(
       trips.returnUpcomingTrips(traveler2.travelerID, "2022/10/14")
     ).to.deep.equal([
+      {
+        id: 12,
+        userID: 6,
+        destinationID: 4,
+        travelers: 6,
+        date: "2022/10/14",
+        duration: 6,
+        status: "pending",
+        suggestedActivities: [],
+      },
+    ]);
+  });
+
+  it("should return all pending trips for a traveler", () => {
+    expect(trips.returnPendingTrips(traveler1.travelerID)).to.deep.equal(
+      "You have no pending trips"
+    );
+    expect(trips.returnPendingTrips(traveler2.travelerID)).to.deep.equal([
       {
         id: 12,
         userID: 6,
@@ -378,13 +396,13 @@ describe("TripsRepo", () => {
         traveler1.travelerID,
         "2022/10/14"
       )
-    ).to.equal(5885);
+    ).to.equal("5885.00");
     expect(
       trips.calculateCostsForPastYear(
         destinations,
         traveler2.travelerID,
         "2022/10/14"
       )
-    ).to.equal(2475);
+    ).to.equal("2475.00");
   });
 });

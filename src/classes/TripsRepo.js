@@ -15,14 +15,32 @@ class TripsRepo {
 
   returnPastTrips(travelerID, date) {
     return this.findAllTripsTakenByTraveler(travelerID).filter(
-      (trips) => dayjs(trips.date).$d < dayjs(date).$d
+      (trips) =>
+        dayjs(trips.date).format("YYYY/MM/DD") <
+        dayjs(date).format("YYYY/MM/DD")
     );
   }
 
   returnUpcomingTrips(travelerID, date) {
-    return this.findAllTripsTakenByTraveler(travelerID).filter(
-      (trips) => dayjs(trips.date).$d >= dayjs(date).$d
+    const result = this.findAllTripsTakenByTraveler(travelerID).filter(
+      (trips) =>
+        dayjs(trips.date).format("YYYY/MM/DD") >=
+        dayjs(date).format("YYYY/MM/DD")
     );
+    if (result.length === 0) {
+      return "You have no upcoming trips";
+    }
+    return result;
+  }
+
+  returnPendingTrips(travelerID) {
+    const result = this.findAllTripsTakenByTraveler(travelerID).filter(
+      (trips) => trips.status === "pending"
+    );
+    if (result.length === 0) {
+      return "You have no pending trips";
+    }
+    return result;
   }
 
   findTripsByDate(date) {
@@ -31,9 +49,9 @@ class TripsRepo {
 
   calculateCostsForPastYear(destinations, travelerID, date) {
     const pastTrips = this.returnPastTrips(travelerID, date);
-    return pastTrips.reduce((acc, curr) => {
+    const result = pastTrips.reduce((acc, curr) => {
       destinations.forEach((destination) => {
-        if (destination.destinationID === curr.destinationID) {
+        if (destination.id === curr.destinationID) {
           acc +=
             (destination.estimatedLodgingCostPerDay * curr.duration +
               destination.estimatedFlightCostPerPerson * curr.travelers) *
@@ -42,6 +60,7 @@ class TripsRepo {
       });
       return acc;
     }, 0);
+    return parseFloat(result).toFixed(2);
   }
 }
 
