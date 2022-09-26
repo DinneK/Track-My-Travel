@@ -31,27 +31,6 @@
       <div data-glide-el="track" class="glide__track">
         <ul class="glide__slides">
           <li class="glide__slide">
-            <form class="booking-form">
-              <div class="booking-outer-box">
-                <div class="date-details">
-                  <h2 class="date-start">Trip Start</h2>
-                  <input type="date" class="cal-style" id="start" name="form-start-date" value="2019-06-23" min="2019-01-01" max="2022-12-31">
-                  <h2 class="num-days">Number of Days</h2>
-                  <input type="number" class="num-style" id="day-quantity" name="quantity" min="1" max="30">
-                </div>
-                <div class="human-details">
-                  <h2 class="num-traveler">Number of Travelers</h2>
-                  <input type="number" class="num-style" id="trav-quantity" name="quantity" min="1" max="10">
-                  <h2 class="num-traveler">Destination</h2>
-                  <select class="destinations" id="destinations" name="destinations">
-                    <option>Pick Destination</option>
-                  </select>
-                  <input class="submit-search" id="submitSearch" type="submit">
-                </div>
-              </div>
-            </form>
-         </li>
-          <li class="glide__slide">
             <div class="total-year-spent-card">
               <div class="total-spent-box">
                 <h2>The total amount you have spent on trips this yesr is:</h2>
@@ -71,24 +50,47 @@
               </div>
             </li>
             <li class="glide__slide">
-              <div class="pending-booking-card">
-                <div class="pending-booking-pic no-upcoming" id="pendingBookingPic"></div>
+              <div class="no-upcoming pending-booking-card">
+                <div class="pending-booking-pic" id="pendingBookingPic"></div>
               </div>
             </li>
-            <!-- form goes here -->
           </ul>
         </div>
-      <div class="glide__arrows" data-glide-el="controls">
-        <!-- <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button> -->
-        <button class="glide__arrow glide__arrow--right" data-glide-dir=">">&#10145;</button>
+        <div class="glide__arrows" data-glide-el="controls">
+          <!-- <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button> -->
+          <button class="glide__arrow glide__arrow--right" data-glide-dir=">">&#10145;</button>
+        </div>
       </div>
-    </div>
-    <section class="booking-det-container">
+      <!-- ~~~~~~~~~~~~~~~~~~~BOOKING FORM START~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+      <section class="booking-holder">
+        <form class="booking-form" id="bookingForm">
+          <div class="booking-outer-box">
+            <div class="date-details">
+              <h2 class="date-start">Trip Start</h2>
+              <input type="date" class="cal-style" id="start" name="form-start-date" value="2021-06-23" min="2019-01-01" max="2024-12-31">
+              <h2 class="num-days">Number of Days</h2>
+              <input type="number" class="num-style" id="day-quantity" name="quantity" min="1" max="30">
+            </div>
+            <div class="human-details">
+              <h2 class="num-traveler">Number of Travelers</h2>
+              <input type="number" class="num-style" id="trav-quantity" name="quantity" min="1" max="10">
+              <h2 class="num-traveler">Destination</h2>
+              <select class="destinations" id="destinations" name="destinations">
+                <option>Pick Destination</option>
+              </select>
+              <input class="submit-search" id="submitSearch" type="submit">
+            </div>
+          </div>
+        </form>
+      </section>
+    <!-- ~~~~~~~~~~~~~~~~~~~BOOKING FORM END~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+    <section class="booking-det-container hidden" id="bookDetContainer">
       <div class="booking-details" id="bookingDetails">
         <div class="confirmation-box" id="confirmBox">
           <div class="trip-total" id="tripConfirmation">
             <h2 class="trip-destination"></h2>
           </div>
+          <input class="confirm-booking" id="confirmBooking" type="submit" value="Confirm">
         </div>
       <div>
     </section>
