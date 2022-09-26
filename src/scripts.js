@@ -34,7 +34,7 @@ let tripsRepo;
 let travelersRepo;
 let destinationRepo;
 
-import { fetchAllData } from "./apiCalls.js";
+import { fetchAllData, fetchPost } from "./apiCalls.js";
 
 function instantiateData() {
   Promise.all([
@@ -45,10 +45,10 @@ function instantiateData() {
     travelersData = dataSet[0].travelers;
     tripsData = dataSet[1].trips;
     destinationsData = dataSet[2].destinations;
-    // currentTraveler = new Traveler(
-    //   travelersData[Math.floor(Math.random() * travelersData.length)]
-    // );
-    currentTraveler = new Traveler(travelersData[6]);
+    currentTraveler = new Traveler(
+      travelersData[Math.floor(Math.random() * travelersData.length)]
+    );
+    // currentTraveler = new Traveler(travelersData[47]);
     travelersRepo = new TravelersRepo(travelersData);
     tripsRepo = new TripsRepo(tripsData);
     destinationRepo = new DestinationsRepo(destinationsData);
@@ -60,27 +60,37 @@ function instantiateData() {
     loadPage();
   });
 }
-// function updateData() {
-// Promise.all([fetchData('sleep', 'sleepData'), fetchData('hydration', 'hydrationData'), fetchData('activity', 'activityData')])
-//   .then((dataSet) => {
-//     allSleepData = dataSet[0];
-//     allHydrationData = dataSet[1];
-//     allActivityData = dataSet[2];
-// })
-// };
+
+function updateData() {
+  Promise.all([
+    fetchAllData("travelers"),
+    fetchAllData("trips"),
+    fetchAllData("destinations"),
+  ]).then((dataSet) => {
+    travelersData = dataSet[0].travelers;
+    tripsData = dataSet[1].trips;
+    destinationsData = dataSet[2].destinations;
+  });
+}
 
 const subtitleMessage = document.getElementById("subtitleMessage");
 const dollarsPerYear = document.getElementById("dollarsPerYear");
 const pastBookingPic = document.getElementById("pastBookingPic");
 const upcomingBookingPic = document.getElementById("upcomingBookingPic");
-const pendingBookingPic = document.getElementById("pendingBookingPic");
+const pendingBookingPic = document.getElementsByClassName(
+  "pending-booking-pic"
+)[1];
+const destinationSelection = document.getElementsByClassName("destinations")[1];
+const submitSearch = document.getElementById("submitSearch");
+const confirmTrip = document.getElementById("confirmTrip");
 
 console.log("This is the JavaScript entry file - your code begins here.");
 // console.log(dayjs());
 // const userInfo = document.getElementById("userInfo");
 
 window.addEventListener("load", instantiateData);
-
+submitSearch.addEventListener("click", createNewTrip);
+confirmTrip.addEventListener("click", postNewTrip);
 // function renderUserInfo() {
 //   userInfo.innerHTML = `<p>Loading</p>`;
 //   API.getTravelers()
@@ -111,6 +121,7 @@ function loadPage() {
   renderPastTrips();
   renderUpcomingTrips();
   renderPendingTrips();
+  populateDestinationSelection();
 }
 
 function renderSubtitleMessage() {
@@ -132,13 +143,17 @@ function renderPastTrips() {
   let travelerID = currentTraveler.travelerID;
   let date = dayjs().format("YYYY/MM/DD");
   // console.log(tripsRepo.returnPastTrips(travelerID, date));
-  tripsRepo.returnPastTrips(travelerID, date).filter((trip) => {
-    destinationsData.forEach((destination) => {
-      if (destination.id === trip.destinationID) {
-        pastBookingPic.innerHTML += `<img class='destination-img' src='${destination.image}'/>`;
-      }
+  if (tripsRepo.returnPastTrips(travelerID, date).length === 0) {
+    pastBookingPic.innerHTML = `<div class="trip-boxes">You have no past trips</div>`;
+  } else {
+    tripsRepo.returnPastTrips(travelerID, date).filter((trip) => {
+      destinationsData.forEach((destination) => {
+        if (destination.id === trip.destinationID) {
+          pastBookingPic.innerHTML += `<img class='destination-img' src='${destination.image}'/>`;
+        }
+      });
     });
-  });
+  }
 }
 
 function renderUpcomingTrips() {
@@ -163,20 +178,64 @@ function renderUpcomingTrips() {
 
 function renderPendingTrips() {
   let travelerID = currentTraveler.travelerID;
-  console.log(tripsRepo.returnPendingTrips(travelerID));
+  // console.log(tripsRepo.returnPendingTrips(travelerID));
+  console.log({ travelerID });
   if (
-    tripsRepo.returnUpcomingTrips(travelerID, date) ===
-    `You have no pending trips`
+    tripsRepo.returnPendingTrips(travelerID) === "You have no pending trips"
   ) {
-    upcomingBookingPic.innerHTML = `<div class="trip-boxes">You have no pending trips</div>`;
+    pendingBookingPic.innerHTML += `<div class="trip-boxes">You have no pending trips</div>`;
   } else {
+    console.log("LN 172:", tripsRepo.returnPendingTrips(travelerID));
+    console.log({ tripsRepo });
     tripsRepo.returnPendingTrips(travelerID).filter((trip) => {
       destinationsData.forEach((destination) => {
-        // console.log({ trip });
         if (destination.id === trip.destinationID) {
-          pendingBookingPic.innerHTML += `<img class='destination-img' src='${destination.image}'/>`;
+          console.log({ pendingBookingPic });
+          pendingBookingPic.innerHTML += `<img class="destination-img" src="${destination.image}"/>`;
+          let p = document.createElement("p");
+          pendingBookingPic.classList.add(`Booger`);
         }
       });
     });
   }
 }
+
+// function renderPendingTrips() {
+//   let travelerID = currentTraveler.travelerID;
+//   if (tripsRepo.returnUpcomingTrips(travelerID).length > 0) {
+//     tripsRepo.returnPendingTrips(travelerID).filter((trip) => {
+//       console.log({ trip });
+//       destinationsData.forEach((destination) => {
+//         if (destination.id === trip.destinationID) {
+//           pendingBookingPic.innerHTML += `<img class="destination-img" src="${destination.image}"/>`;
+//         }
+//       });
+//     });
+//   } else if (tripsRepo.returnUpcomingTrips(travelerID).length === 0) {
+//     pendingBookingPic.innerHTML = `<div class="trip-boxes">You have no pending trips</div>`;
+//   }
+// }
+
+function populateDestinationSelection() {
+  return destinationsData.forEach((destination) => {
+    console.log(destination.destination);
+    destinationSelection.innerHTML += `<option>${destination.destination}</option>`;
+  });
+}
+
+function createNewTrip() {}
+
+// function estimateCostPerTrip(){
+//   const neededDestinationData = this.findDestination(traveler, tripsData, destinationsData);
+
+//
+
+//     const lodgingEachDay = neededDestinationData.estimatedLodgingCost;
+//     const flightEachPerson = neededDestinationData.estimatedFlightCost;
+
+//     const costOfLodging = lodgingEachDay * this.duration; === dayNum.value
+//     const costOfFlight = flightEachPerson * this.travelers; === people.value
+
+//     const totalCost = (costOfLodging + costOfFlight) * 1.1;
+//     return totalCost
+// }
