@@ -8,13 +8,13 @@ import "./css/styles.css";
 import Glide from "@glidejs/glide";
 import "/node_modules/@glidejs/glide/dist/css/glide.core.min.css";
 
-// const config = {
-//   type: "carousel",
-//   startAt: 0,
-//   perView: 1,
-// };
+const config = {
+  type: "carousel",
+  startAt: 0,
+  perView: 1,
+};
 
-// new Glide(".glide", config).mount();
+new Glide(".glide", config).mount();
 
 import Destination from "./classes/Destination";
 import DestinationsRepo from "./classes/DestinationsRepo";
@@ -61,7 +61,7 @@ function instantiateData() {
     // console.log({ currentTraveler });
     // console.log({ travelersData });
     // console.log({ tripsData });
-    console.log("1", destinationsData);
+    // console.log("1", destinationsData);
     // generatePageLoad(allUserData);
     loadPage();
   });
@@ -82,18 +82,24 @@ function updateData() {
 const subtitleMessage = document.getElementById("subtitleMessage");
 const dollarsPerYear = document.getElementById("dollarsPerYear");
 const pastBookingPic = document.getElementById("pastBookingPic");
-const upcomingBookingPic = document.getElementById("upcomingBookingPic");
+const upcomingBookingPic = document.getElementsByClassName(
+  "upcoming-booking-pic"
+)[1];
 const pendingBookingPic = document.getElementsByClassName(
   "pending-booking-pic"
-)[0];
-const destinationSelection = document.getElementsByClassName("destinations")[0];
+)[1];
+const destinationSelection = document.getElementById("destinations");
 const submitSearch = document.getElementById("submitSearch");
-const confirmTrip = document.getElementById("confirmTrip");
-const bookingForm = document.getElementsByClassName("booking-form");
+// const confirmTrip = document.getElementById("confirmTrip");
+// const bookingForm = document.getElementsByClassName("booking-form");
 const chosenNumDays = document.getElementById("day-quantity");
 const chosenNumPeople = document.getElementById("trav-quantity");
-const bookingDetails = document.getElementById("bookingDetails");
+// const bookingDetails = document.getElementById("bookingDetails");
 const tripConfirmation = document.getElementById("tripConfirmation");
+const dateInput = document.querySelector("input[type='date']");
+const bookingDetContainer = document.getElementById("bookDetContainer");
+const confirmBooking = document.getElementById("confirmBooking");
+const theForm = document.getElementById("bookingForm");
 
 console.log("This is the JavaScript entry file - your code begins here.");
 // console.log(dayjs());
@@ -101,26 +107,31 @@ console.log("This is the JavaScript entry file - your code begins here.");
 
 window.addEventListener("load", instantiateData);
 submitSearch.addEventListener("click", createNewTrip);
-// confirmTrip.addEventListener("click", postNewTrip);
-
-// bookingForm.addEventListener("submit", (e) => {
+confirmBooking.addEventListener("click", postNewTrip);
+// theForm.addEventListener("submit", function (e) {
 //   e.preventDefault();
 
-//   const formData = new FormData(e.target);
-//   console.log(formData.get());
-//   const newTripData = {
-//     travelerID: currentTraveler.travelerID,
-//     date: formData.get("form-date"),
-//     destination: destinationSelection.value,
-//     duration: formData.get(),
-//     // estimatedFlightCostPerPerson: destinationsData.estimatedFlightCostPerPerson,
-//     // estimatedLodgingCostPerDay: destinationsData.estimatedLodgingCostPerDay,
-//   };
-//   formSubmitted = true;
-//   // e.target.reset();
-//   // showHideForm();
-//   createNewTrip();
+//   const formData = new FormData(this);
 // });
+
+function show(element) {
+  element.classList.remove("hidden");
+}
+
+function hide(element) {
+  element.classList.add("hidden");
+}
+
+function postNewTrip() {
+  // this.tripID = tripInfo.id = next consecutive number
+  //   this.travelerID = tripInfo.userID;
+  //   this.destinationID = tripInfo.destinationID;
+  //   this.travelers = tripInfo.travelers;
+  //   this.date = tripInfo.date;
+  //   this.duration = tripInfo.duration;
+  //   this.status = tripInfo.status;
+  //   this.suggestedActivities = tripInfo.suggestedActivities;
+}
 
 // function renderUserInfo() {
 //   userInfo.innerHTML = `<p>Loading</p>`;
@@ -153,6 +164,7 @@ function loadPage() {
   renderUpcomingTrips();
   // renderPendingTrips();
   populateDestinationSelection();
+  loadCurrentDate();
   // createNewTrip();
 }
 
@@ -208,43 +220,32 @@ function renderUpcomingTrips() {
   }
 }
 
-// function renderPendingTrips() {
-//   let travelerID = currentTraveler.travelerID;
-//   console.log({ travelerID });
-//   if (
-//     tripsRepo.returnPendingTrips(travelerID) === "You have no pending trips"
-//   ) {
-//     pendingBookingPic.innerHTML += `<div class="trip-boxes">You have no pending trips</div>`;
-//   } else {
-//     tripsRepo.returnPendingTrips(travelerID).filter((trip) => {
-//       destinationsData.forEach((destination) => {
-//         if (destination.id === trip.destinationID) {
-//           console.log({ pendingBookingPic });
-//           pendingBookingPic.innerHTML += `<img class="destination-img" src="${destination.image}"/>`;
-//           let p = document.createElement("p");
-//           pendingBookingPic.classList.add(`Booger`);
-//         }
-//       });
-//     });
-//   }
-// }
+function renderPendingTrips() {
+  let travelerID = currentTraveler.travelerID;
+  console.log({ travelerID });
+  if (
+    tripsRepo.returnPendingTrips(travelerID) === "You have no pending trips"
+  ) {
+    pendingBookingPic.innerHTML += `<div class="trip-boxes">You have no pending trips</div>`;
+  } else {
+    tripsRepo.returnPendingTrips(travelerID).filter((trip) => {
+      destinationsData.forEach((destination) => {
+        if (destination.id === trip.destinationID) {
+          console.log({ pendingBookingPic });
+          pendingBookingPic.innerHTML += `<img class="destination-img" src="${destination.image}"/>`;
+          let p = document.createElement("p");
+          pendingBookingPic.classList.add(`Booger`);
+        }
+      });
+    });
+  }
+}
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-// function renderPendingTrips() {
-//   let travelerID = currentTraveler.travelerID;
-//   if (tripsRepo.returnUpcomingTrips(travelerID).length > 0) {
-//     tripsRepo.returnPendingTrips(travelerID).filter((trip) => {
-//       console.log({ trip });
-//       destinationsData.forEach((destination) => {
-//         if (destination.id === trip.destinationID) {
-//           pendingBookingPic.innerHTML += `<img class="destination-img" src="${destination.image}"/>`;
-//         }
-//       });
-//     });
-//   } else if (tripsRepo.returnUpcomingTrips(travelerID).length === 0) {
-//     pendingBookingPic.innerHTML = `<div class="trip-boxes">You have no pending trips</div>`;
-//   }
-// }
+function loadCurrentDate() {
+  let now = dayjs().format("YYYY-MM-DD");
+  dateInput.value = now;
+}
 
 function populateDestinationSelection() {
   return destinationsData.forEach((destination) => {
@@ -254,6 +255,9 @@ function populateDestinationSelection() {
 
 function createNewTrip(e) {
   e.preventDefault();
+  show(bookingDetContainer);
+  const chosenDate = dayjs(dateInput.value).format("MM/DD/YYYY");
+  console.log(chosenDate);
   const numDays = parseInt(chosenNumDays.value);
   const destination = destinationSelection.value;
   const numTravelers = parseInt(chosenNumPeople.value);
@@ -266,9 +270,10 @@ function createNewTrip(e) {
   );
 
   tripConfirmation.innerHTML = `<div class="trip-total" id="tripConfirmation">
+  <h2>Trip Details:</h2>
   <h2 class="trip-destination">Your trip to ${destination}</h2>
-  <h2>On DATE for ${numDays} days</h2>
-  <h2>Will cost $${calculateTotal}</h2>
+  <h2>Starting on: ${chosenDate} for ${numDays} days</h2>
+  <h2>Will cost $${calculateTotal}, this includes a 10% agent fee</h2>
   </div>`;
 
   console.log(calculateTotal);

@@ -173,6 +173,7 @@ h2 {
   width: 50%;
 }
 
+.confirm-booking,
 .submit-search {
   border: none;
   border-radius: 12px;
@@ -188,6 +189,7 @@ h2 {
   margin-top: 10px;
 }
 
+.booking-holder,
 .booking-det-container {
   height: 70vh;
   width: 100vw;
@@ -220,10 +222,6 @@ h2 {
   /* width: 60vw;
 } */ 
 
-/* .trip-total {
-
-} */
-
-/* .hidden {
+.hidden {
   display: none;
-} */
+}
