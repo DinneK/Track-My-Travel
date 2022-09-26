@@ -62,6 +62,20 @@ class TripsRepo {
     }, 0);
     return parseFloat(result).toFixed(2);
   }
+
+  calculateCostPerTrip(destinations, destination, people, days) {
+    const result = destinations.reduce((acc, curr) => {
+      if (destination.destination === curr.destination) {
+        acc +=
+          (destination.estimatedLodgingCostPerDay * days +
+            destination.estimatedFlightCostPerPerson * people) *
+          1.1;
+      }
+      return acc;
+    }, 0);
+
+    return parseFloat(result).toFixed(2);
+  }
 }
 
 export default TripsRepo;

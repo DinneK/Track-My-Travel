@@ -13,6 +13,28 @@ const fetchAllData = (dataName) => {
     .then((data) => data);
 };
 
+const fetchPost = (newData, initObject) => {
+  return fetch(`${BASE_URL}/api/v1/${newData}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(initObject),
+  })
+    .then((response) => handleErrors(response))
+    .then((response) => response.json())
+    .catch((err) => showErrorMessage(err));
+};
+function handleErrors(response) {
+  if (!response.ok) {
+    throw Error(response.statusText);
+  } else {
+    return response;
+  }
+}
+function showErrorMessage() {
+  console.log("MISTAKE!");
+}
+// export { fetchData, fetchPost };
+
 // function getTravelers() {
 //   return fetch(`${BASE_URL}/api/v1/travelers`)
 //     .then((response) => {
@@ -28,7 +50,7 @@ const fetchAllData = (dataName) => {
 //   return Promise.resolve(mockTravelersData).then((data) => data);
 // }
 
-export { fetchAllData };
+export { fetchAllData, fetchPost };
 // export const API = {
 //   fetchAllData,
 // };

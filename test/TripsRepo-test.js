@@ -2,7 +2,7 @@ import { expect } from "chai";
 import mockDestinationsData from "../src/data/mockDestinationsData";
 import mockTripsData from "../src/data/mockTripsData";
 import mockTravelersData from "../src/data/mockTravelersData";
-// import DestinationsRepo from "../src/classes/DestinationsRepo";
+import DestinationsRepo from "../src/classes/DestinationsRepo";
 import Destination from "../src/classes/Destination";
 import TripsRepo from "../src/classes/TripsRepo";
 // import Trip from "../src/classes/Trip";
@@ -404,5 +404,16 @@ describe("TripsRepo", () => {
         "2022/10/14"
       )
     ).to.equal("2475.00");
+  });
+
+  it("should calculate the cost for one trip", () => {
+    const singleDestination = mockDestinationsData[6];
+    destinations = mockDestinationsData.map(
+      (destination) => new Destination(destination)
+    );
+
+    expect(
+      trips.calculateCostPerTrip(destinations, singleDestination, 2, 7)
+    ).to.equal("1639.00");
   });
 });

@@ -94,14 +94,6 @@ h2 {
 
 .pending-booking-pic,
 .upcoming-booking-pic,
-.past-booking-pic{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  grid-column-gap: 15px;
-  grid-row-gap: 15px;
-}
-
 .no-upcoming {
   display: flex;
   font-family: 'Italianno', cursive;
@@ -111,6 +103,13 @@ h2 {
   margin-bottom: 2%;
   margin-top: 2%
 }
+.past-booking-pic{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+}
 
 .destination-img {
   height: 200px;
@@ -118,3 +117,74 @@ h2 {
   border-radius: 22px;
   box-shadow: 1px 7px 30px 5px rgba(0 0 0 / 0.25);
 }
+
+
+
+.booking-outer-box {
+  align-items: center;
+  background-color: #F5F5F5D4;
+  border-radius: 22px;
+  box-shadow: 1px 7px 40px 5px rgba(0 0 0 / 0.25);
+  display: flex;
+  /* flex-direction: column; */
+  justify-content: space-evenly;
+  height: 63vh;
+  /* margin-top: 3%; */
+  width: 70vw;
+}
+
+.date-details {
+ align-items: center;
+ background-color:#D9D9D9;
+ border-radius: 22px;
+ box-shadow: inset -10px -5px 19px -19px rgb(0 0 0 / 50%);
+ display: flex;
+ flex-direction: column;
+ height: 55vh;
+ justify-content: center;
+ width: 25vw;
+}
+.human-details {
+ align-items: center;
+ background-color:#D9D9D9;
+ border-radius: 22px;
+ box-shadow: inset -10px -5px 19px -19px rgb(0 0 0 / 50%);
+ display: flex;
+ flex-direction: column;
+ height: 55vh;
+ justify-content: center;
+ width: 35vw;
+}
+
+.destinations,
+.num-style,
+.cal-style{
+  border: none;
+  border-radius: 12px;
+  box-shadow: inset -10px -10px 15px -18px rgb(0 0 0 / 50%);
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 1.2em;
+  height: 10%;
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+.submit-search {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 10px 15px 20px 6px rgb(0 0 0 / 25%);
+  color: rgba(0, 0, 0, 0.25);
+  font-size: 1.2em;
+  height: 10%;
+  margin-bottom: 20px;
+  width: 50%;
+}
+
+.submit-search{
+  margin-top: 10px;
+}
+
+/* .date-start,
+.num-days {
+  font-weight: 100;
+} */
