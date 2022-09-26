@@ -63,16 +63,26 @@ class TripsRepo {
     return parseFloat(result).toFixed(2);
   }
 
-  calculateCostPerTrip(destinations, destination, people, days) {
+  calculateSubtotalCostPerTrip(destinations, destination, people, days) {
     const result = destinations.reduce((acc, curr) => {
-      if (destination.destination === curr.destination) {
+      if (destination === curr.destination) {
         acc +=
-          (destination.estimatedLodgingCostPerDay * days +
-            destination.estimatedFlightCostPerPerson * people) *
-          1.1;
+          curr.estimatedLodgingCostPerDay * days +
+          curr.estimatedFlightCostPerPerson * people;
       }
       return acc;
     }, 0);
+    return parseFloat(result).toFixed(2);
+  }
+
+  calculateTotalCostForASingleTrip(destinations, destination, people, days) {
+    const result =
+      this.calculateSubtotalCostPerTrip(
+        destinations,
+        destination,
+        people,
+        days
+      ) * 1.1;
 
     return parseFloat(result).toFixed(2);
   }

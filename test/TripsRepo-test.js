@@ -406,14 +406,46 @@ describe("TripsRepo", () => {
     ).to.equal("2475.00");
   });
 
-  it("should calculate the cost for one trip", () => {
-    const singleDestination = mockDestinationsData[6];
+  it("should calculate the subtotal cost for one trip", () => {
+    const singleDestination1 = mockDestinationsData[6].destination;
+    const singleDestination2 = mockDestinationsData[8].destination;
+
     destinations = mockDestinationsData.map(
       (destination) => new Destination(destination)
     );
 
     expect(
-      trips.calculateCostPerTrip(destinations, singleDestination, 2, 7)
+      trips.calculateSubtotalCostPerTrip(destinations, singleDestination1, 2, 7)
+    ).to.equal("1490.00");
+
+    expect(
+      trips.calculateSubtotalCostPerTrip(destinations, singleDestination2, 3, 5)
+    ).to.equal("3350.00");
+  });
+
+  it("should calculate the total cost of a single trip", () => {
+    const singleDestination1 = mockDestinationsData[6].destination;
+    const singleDestination2 = mockDestinationsData[8].destination;
+
+    destinations = mockDestinationsData.map(
+      (destination) => new Destination(destination)
+    );
+
+    expect(
+      trips.calculateTotalCostForASingleTrip(
+        destinations,
+        singleDestination1,
+        2,
+        7
+      )
     ).to.equal("1639.00");
+    expect(
+      trips.calculateTotalCostForASingleTrip(
+        destinations,
+        singleDestination2,
+        3,
+        5
+      )
+    ).to.equal("3685.00");
   });
 });
