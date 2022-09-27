@@ -88,6 +88,7 @@ function postNewTrip() {
   });
   clearForm();
   hide(bookingDetContainer);
+  show(bookingForm);
 }
 
 const subtitleMessage = document.getElementById("subtitleMessage");
@@ -106,7 +107,7 @@ const chosenNumPeople = document.getElementById("trav-quantity");
 const tripConfirmation = document.getElementById("tripConfirmation");
 const dateInput = document.querySelector("input[type='date']");
 const bookingDetContainer = document.getElementById("bookDetContainer");
-const bookingFormHolder = document.getElementById("bookingFormHolder");
+// const bookingFormHolder = document.getElementById("bookingFormHolder");
 const glideContainer = document.getElementById("glideContainer");
 const loginFormHolder = document.getElementById("loginFormHolder");
 const confirmBooking = document.getElementById("confirmBooking");
@@ -178,7 +179,7 @@ function loadTravelerDashboard(event) {
     //   }
     let userID = parseInt(userName.value.slice(8, userName.value.length));
     console.log({ userID });
-    hide(bookingFormHolder);
+    // hide(bookingFormHolder);
     hide(loginFormHolder);
     show(glideContainer);
     show(bookingForm);
@@ -294,6 +295,7 @@ function createNewTrip(e) {
   <h2>Starting on: ${chosenDate} for ${numDays} days,</h2>
   <h2>will cost $${calculateTotal}, this includes a 10% agent fee</h2>
   </div>`;
+  hide(bookingForm);
 }
 
 function clearForm() {
