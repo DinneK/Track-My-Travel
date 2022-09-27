@@ -2,7 +2,7 @@ import { expect } from "chai";
 import mockDestinationsData from "../src/data/mockDestinationsData";
 import mockTripsData from "../src/data/mockTripsData";
 import mockTravelersData from "../src/data/mockTravelersData";
-import DestinationsRepo from "../src/classes/DestinationsRepo";
+// import DestinationsRepo from "../src/classes/DestinationsRepo";
 import Destination from "../src/classes/Destination";
 import TripsRepo from "../src/classes/TripsRepo";
 // import Trip from "../src/classes/Trip";

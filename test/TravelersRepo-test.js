@@ -4,7 +4,7 @@ import TravelersRepo from "../src/classes/TravelersRepo";
 import Traveler from "../src/classes/Traveler";
 
 describe("TravelersRepo", () => {
-  let travelers, traveler1, traveler2, traveler3;
+  let travelers, traveler1, traveler2;
 
   beforeEach(() => {
     travelers = new TravelersRepo(mockTravelersData);
