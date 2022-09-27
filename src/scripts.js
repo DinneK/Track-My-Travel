@@ -47,20 +47,7 @@ function instantiateData() {
       (destination) => new Destination(destination)
     );
     loadPage();
-  });
-}
-
-function updateData() {
-  Promise.all([
-    fetchAllData("travelers"),
-    fetchAllData("trips"),
-    fetchAllData("destinations"),
-  ]).then((dataSet) => {
-    travelersData = dataSet[0].travelers;
-    tripsData = dataSet[1].trips;
-    destinationsData = dataSet[2].destinations;
     renderNewPendingTrips();
-    renderPendingTrips();
   });
 }
 
@@ -82,7 +69,7 @@ function postNewTrip() {
     suggestedActivities: [],
   };
 
-  fetchPost("trips", newTripData).then((data) => updateData());
+  fetchPost("trips", newTripData).then((data) => instantiateData());
   clearForm();
 }
 
@@ -248,6 +235,7 @@ function createNewTrip(e) {
 
 function clearForm() {
   errorMessage.innerText = "";
+  tripConfirmation.innerHTML = "";
   bookingForm.reset();
 }
 
@@ -255,18 +243,18 @@ function loadErrorMessageInSubmission() {
   if (
     dateInput.value === "" ||
     chosenNumDays.value === "" ||
-    dateInput.value === "" ||
+    destinationSelection.value === "Pick Destination" ||
     chosenNumPeople.value === ""
   ) {
     errorMessage.innerText = `Please Fill Out All Fields`;
     button.disabled = true;
   } else if (
-    dateInput.value === dayjs(dateInput.value).format("MM/DD/YYYY") ||
-    chosenNumDays.value === parseInt(chosenNumDays.value) ||
-    dateInput.value === destinationSelection.value ||
+    dateInput.value === dayjs(dateInput.value).format("MM/DD/YYYY") &&
+    chosenNumDays.value === parseInt(chosenNumDays.value) &&
+    destinationSelection.value === destinationSelection.value &&
     chosenNumPeople.value === parseInt(chosenNumPeople.value)
   ) {
-    errorMessage.innerText = "";
     button.disabled = false;
+    errorMessage.innerText = "";
   }
 }
