@@ -25,13 +25,7 @@ let tripsRepo;
 let travelersRepo;
 let destinationRepo;
 let singleDestinations;
-// let travelers = [];
-
-// function getTraveler() {
-//   travelersRepo.travelers.forEach((traveler) => {
-//     travelers.push(new Traveler(traveler));
-//   });
-// }
+let userID;
 
 function instantiateData() {
   Promise.all([
@@ -42,24 +36,13 @@ function instantiateData() {
     travelersData = dataSet[0].travelers;
     tripsData = dataSet[1].trips;
     destinationsData = dataSet[2].destinations;
-    // currentTraveler = new Traveler(
-    //   travelersData[Math.floor(Math.random() * travelersData.length)]
-    // );
-    // currentTraveler = travelersData.find((traveler) => new Traveler(traveler));
-    // console.log({ travelersData });
-    // currentTraveler = new Traveler(travelersData);
-    // console.log({ currentTraveler });
     travelersRepo = new TravelersRepo(travelersData);
-    console.log(travelersRepo.travelers);
     tripsRepo = new TripsRepo(tripsData);
-    console.log({ travelersRepo });
     destinationRepo = new DestinationsRepo(destinationsData);
     singleDestinations = destinationsData.map(
       (destination) => new Destination(destination)
     );
-    // loadPage();
     loadLoginPage();
-    // getTraveler();
   });
 }
 
@@ -107,7 +90,6 @@ const chosenNumPeople = document.getElementById("trav-quantity");
 const tripConfirmation = document.getElementById("tripConfirmation");
 const dateInput = document.querySelector("input[type='date']");
 const bookingDetContainer = document.getElementById("bookDetContainer");
-// const bookingFormHolder = document.getElementById("bookingFormHolder");
 const glideContainer = document.getElementById("glideContainer");
 const loginFormHolder = document.getElementById("loginFormHolder");
 const confirmBooking = document.getElementById("confirmBooking");
@@ -118,8 +100,6 @@ const userName = document.getElementById("username");
 const password = document.getElementById("password");
 const signInBtn = document.getElementById("sign-in");
 
-// window.addEventListener("load", loadLoginPage());
-// // instantiateData
 window.addEventListener("load", () => {
   instantiateData();
   loadLoginPage();
@@ -138,9 +118,7 @@ function hide(element) {
 
 function loadPage() {
   let userID = parseInt(userName.value.slice(8, userName.value.length));
-  console.log("LN 137", userID);
   currentTraveler = new Traveler(travelersRepo.travelers[userID - 1]);
-  console.log("LN 139", currentTraveler);
   renderSubtitleMessage();
   renderTotalSpentPerYear();
   renderPastTrips();
@@ -156,16 +134,10 @@ function loadLoginPage() {
   hide(glideContainer);
   userName.value = "";
   password.value = "";
-  // loadTravelerDashboard();
 }
 
 function loadTravelerDashboard(event) {
   event.preventDefault();
-  // let userID = parseInt(userName.value.slice(8, userName.value.length));
-  // console.log(userID);
-  // console.log(travelersRepo);
-  // if(userID === )
-  // currentTraveler = new Traveler(userID);
   if (userName.value === "" || password.value === "") {
     errorMessage.innerText = `Please Fill Out All Fields`;
   } else if (password.value !== "travel") {
@@ -173,30 +145,15 @@ function loadTravelerDashboard(event) {
   } else if (!userName.value.includes("traveler")) {
     errorMessage.innerText = `Please Try A Different User Name.`;
   } else {
-    // currentTraveler = travelersRepo.travelers.find((traveler) => {
-    //   if (userID === traveler.id) {
-    //     return new Traveler(traveler);
-    //   }
     let userID = parseInt(userName.value.slice(8, userName.value.length));
-    console.log({ userID });
-    // hide(bookingFormHolder);
     hide(loginFormHolder);
     show(glideContainer);
     show(bookingForm);
     loadPage();
   }
-  // return currentTraveler;
-  // instantiateData();
-  // renderSubtitleMessage();
 }
 
 function renderSubtitleMessage() {
-  // let userID = parseInt(userName.value.slice(8, userName.value.length));
-
-  // currentTraveler = travelersRepo.find((traveler) => traveler.id === userID);
-  // currentTraveler = new Traveler(userID);
-  console.log({ currentTraveler });
-  // console.log(currentTraveler.returnTravelerFirstName());
   subtitleMessage.innerHTML = `<h2 class="subtitle-massage" id="subtitleMessage">Welcome Back ${currentTraveler.returnTravelerFirstName()}</h2>`;
 }
 
@@ -277,7 +234,6 @@ function createNewTrip(e) {
   loadErrorMessageInSubmission();
   show(bookingDetContainer);
   const chosenDate = dayjs(dateInput.value).format("MM/DD/YYYY");
-  console.log(chosenDate);
   const numDays = parseInt(chosenNumDays.value);
   const destination = destinationSelection.value;
   const numTravelers = parseInt(chosenNumPeople.value);
