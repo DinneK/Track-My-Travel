@@ -63,6 +63,8 @@ h2 {
   overflow-y: scroll;
 }
 
+.booking-details,
+.booking-form,
 .total-year-spent-card {
   justify-content: center;
 }
