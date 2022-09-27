@@ -35,10 +35,10 @@ function instantiateData() {
     travelersData = dataSet[0].travelers;
     tripsData = dataSet[1].trips;
     destinationsData = dataSet[2].destinations;
-    // currentTraveler = new Traveler(
-    //   travelersData[Math.floor(Math.random() * travelersData.length)]
-    // );
-    currentTraveler = new Traveler(travelersData[14]);
+    currentTraveler = new Traveler(
+      travelersData[Math.floor(Math.random() * travelersData.length)]
+    );
+    // currentTraveler = new Traveler(travelersData[14]);
     travelersRepo = new TravelersRepo(travelersData);
     tripsRepo = new TripsRepo(tripsData);
     destinationRepo = new DestinationsRepo(destinationsData);
@@ -47,7 +47,7 @@ function instantiateData() {
       (destination) => new Destination(destination)
     );
     loadPage();
-    renderNewPendingTrips();
+    // renderNewPendingTrips();
   });
 }
 
@@ -69,7 +69,11 @@ function postNewTrip() {
     suggestedActivities: [],
   };
 
-  fetchPost("trips", newTripData).then((data) => instantiateData());
+  fetchPost("trips", newTripData).then((data) => {
+    const newTrip = data.newTrip;
+    tripsRepo.trips.push(newTrip);
+    renderPendingTrips();
+  });
   clearForm();
 }
 
@@ -167,9 +171,7 @@ function renderUpcomingTrips() {
 function renderPendingTrips() {
   pendingBookingPic.innerHTML = "";
   let travelerID = currentTraveler.travelerID;
-  if (
-    tripsRepo.returnPendingTrips(travelerID) === "You have no pending trips"
-  ) {
+  if (!tripsRepo.returnPendingTrips(travelerID).length) {
     pendingBookingPic.innerHTML += `<div class="trip-boxes">You have no pending trips</div>`;
   } else {
     tripsRepo.returnPendingTrips(travelerID).filter((trip) => {
@@ -180,21 +182,6 @@ function renderPendingTrips() {
       });
     });
   }
-}
-
-function renderNewPendingTrips() {
-  pendingBookingPic.innerHTML = "";
-  console.log(tripsRepo.returnPendingTrips(currentTraveler.travelerID));
-  return tripsRepo
-    .returnPendingTrips(currentTraveler.travelerID)
-    .filter((trip) => {
-      console.log(trip);
-      destinationsData.forEach((destination) => {
-        if (destination.id === trip.destinationID) {
-          pendingBookingPic.innerHTML += `<div class="pic-box-style"><img class="destination-img" src="${destination.image}" alt="${destination.alt}"/><div>${destination.destination}</div></div>`;
-        }
-      });
-    });
 }
 
 function loadCurrentDate() {
@@ -254,7 +241,7 @@ function loadErrorMessageInSubmission() {
     destinationSelection.value === destinationSelection.value &&
     chosenNumPeople.value === parseInt(chosenNumPeople.value)
   ) {
-    button.disabled = false;
     errorMessage.innerText = "";
+    button.disabled = false;
   }
 }

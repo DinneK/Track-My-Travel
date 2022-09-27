@@ -310,9 +310,7 @@ describe("TripsRepo", () => {
   });
 
   it("should return all pending trips for a traveler", () => {
-    expect(trips.returnPendingTrips(traveler1.travelerID)).to.deep.equal(
-      "You have no pending trips"
-    );
+    expect(trips.returnPendingTrips(traveler1.travelerID)).to.deep.equal([]);
     expect(trips.returnPendingTrips(traveler2.travelerID)).to.deep.equal([
       {
         id: 12,

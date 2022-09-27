@@ -37,9 +37,9 @@ class TripsRepo {
     const result = this.findAllTripsTakenByTraveler(travelerID).filter(
       (trips) => trips.status === "pending"
     );
-    if (result.length === 0) {
-      return "You have no pending trips";
-    }
+    // if (result.length === 0) {
+    //   return "You have no pending trips";
+    // }
     return result;
   }
 
