@@ -53,13 +53,18 @@ h2 {
   border-radius: 25px;
   box-shadow: 1px 5px 50px -15px rgba(0 0 0 / 0.25);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: flex-start;
   height: 70vh;
   margin-bottom: 4%;
   margin-top: 3%;
   width: 75vw;
   overflow-x: hidden;
   overflow-y: scroll;
+}
+
+.total-year-spent-card {
+  justify-content: center;
 }
 
 .confirmation-box,
@@ -107,11 +112,12 @@ h2 {
   grid-row-gap: 15px;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .no-upcoming {
   display: flex;
+  justify-content: center;
   font-family: 'Italianno', cursive;
   font-size: 2em;
   font-weight: 600;
