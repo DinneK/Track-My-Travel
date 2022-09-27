@@ -47,7 +47,7 @@
 ### Set Up
 1. Clone the repo
    ```sh
-   git clone git@github.com:DinneK/GitFit.git
+   git clone git@github.com:DinneK/Track-My-Travel
    ```
 2. Install NPM packages
    ```sh
