@@ -17,12 +17,19 @@
     <h1>ONWARD</h1>
     <h2 class="subtitle-massage" id="subtitleMessage">“Cover the earth before it covers you.”</h3>
   </section>
-  <!-- <section class="user-info" id="userInfo">
-    <div class="traveler-name" id="travelerName"></div>
-    <div class="trip-date" id="tripDate"></div>
-    <div class="trip-name" id="destinationName"></div>
-  </section> -->
-  <section class="glide-container">
+  <section class="login-form-holder" id="loginFormHolder">
+    <div class="user-login" id="userLogin">
+      <div class="login-form">
+        <form class="user-sign-in-form">
+          <input class="use-pass" id="username" type="username" placeholder="Username"><br>
+          <input class="use-pass" id="password" type="password" placeholder="Password"><br>
+          <p id="error-message"></p>
+          <input class='sign-in' id='sign-in' type="button" value="Sign in"><br>
+        </form>
+      </div>
+    </div>
+  </section>
+  <section class="glide-container" id="glideContainer">
     <div class="glide">
       <div class="glide__arrows" data-glide-el="controls">
         <button class="glide__arrow glide__arrow--left" data-glide-dir="<">←</button>
@@ -32,7 +39,7 @@
           <li class="glide__slide">
             <div class="total-year-spent-card">
               <div class="total-spent-box">
-                <h2>The total amount you have spent on trips this yesr is:</h2>
+                <h2>The total amount you have spent on trips this year is:</h2>
                 <div class="dollars-per-year" id="dollarsPerYear"></div>
                 <h2>This includes a 10% agent fee</h2>
               </div>
@@ -62,7 +69,7 @@
           <button class="glide__arrow glide__arrow--right" data-glide-dir=">">→</button>
         </div>
       </div>
-      <section class="booking-holder">
+      <section class="booking-holder" id="bookingFormHolder">
         <form class="booking-form" id="bookingForm">
           <div class="booking-outer-box">
             <div class="date-details">
@@ -79,12 +86,12 @@
                 <option>Pick Destination</option>
               </select>
               <input aria-label="search-input-box" class="submit-search" id="submitSearch" type="submit">
-              <p id="error-message"></p>
+              <p id="errorMessage"></p>
             </div>
           </div>
         </form>
       </section>
-    <section class="booking-det-container" id="bookDetContainer">
+    <section class="booking-det-container hidden" id="bookDetContainer">
       <div class="booking-details" id="bookingDetails">
         <div class="confirmation-box" id="confirmBox">
           <div class="trip-total" id="tripConfirmation">

@@ -182,6 +182,7 @@ h2 {
   width: 50%;
 }
 
+.sign-in,
 .confirm-booking,
 .submit-search {
   border: none;
@@ -195,6 +196,7 @@ h2 {
   transition: 0.2s all;
 }
 
+.sign-in:active,
 .confirm-booking:active,
 .submit-search:active {
   transform: scale(0.98);
@@ -218,6 +220,59 @@ h2 {
   height: 30px;
   border: none;
   border-radius: 45%;
+}
+
+.login-form-holder {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+}
+
+.user-login {
+  align-items: center;
+  background-color: #26273466;
+  border-radius: 25px;
+  box-shadow: 1px 5px 50px -15px rgba(0 0 0 / 0.25);
+  display: flex;
+  justify-content: center;
+  height: 70vh;
+  margin-bottom: 4%;
+  margin-top: 3%;
+  width: 40vw;
+}
+
+.login-form {
+  align-items: center;
+  background-color: #F5F5F5D4;
+  border-radius: 22px;
+  box-shadow: 1px 7px 40px 5px rgba(0 0 0 / 0.25);
+  display: flex;
+  justify-content: space-evenly;
+  height: 55vh;
+  width: 30vw;
+}
+
+.user-sign-in-form {
+  align-items: center;
+  background-color:#D9D9D9;
+  border-radius: 22px;
+  box-shadow: inset -10px -5px 19px -19px rgb(0 0 0 / 50%);
+  display: flex;
+  flex-direction: column;
+  height: 45vh;
+  justify-content: center;
+  width: 22vw;
+}
+
+.use-pass {
+  border: none;
+  border-radius: 12px;
+  box-shadow: inset -10px -10px 15px -18px rgb(0 0 0 / 50%);
+  color: rgba(0, 0, 0, 0.70);
+  font-size: 1.2em;
+  height: 10%;
+  margin-bottom: 10px;
+  width: 60%;
 }
 
 .hidden {
