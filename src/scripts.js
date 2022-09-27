@@ -184,21 +184,6 @@ function renderPendingTrips() {
   }
 }
 
-// function renderNewPendingTrips() {
-//   pendingBookingPic.innerHTML = "";
-//   console.log({ tripsRepo });
-//   return tripsRepo
-//     .returnPendingTrips(currentTraveler.travelerID)
-//     .filter((trip) => {
-//       console.log(trip);
-//       destinationsData.forEach((destination) => {
-//         if (destination.id === trip.destinationID) {
-//           pendingBookingPic.innerHTML += `<div class="pic-box-style"><img class="destination-img" src="${destination.image}" alt="${destination.alt}"/><div>${destination.destination}</div></div>`;
-//         }
-//       });
-//     });
-// }
-
 function loadCurrentDate() {
   let now = dayjs().format("YYYY-MM-DD");
   dateInput.value = now;
@@ -256,7 +241,7 @@ function loadErrorMessageInSubmission() {
     destinationSelection.value === destinationSelection.value &&
     chosenNumPeople.value === parseInt(chosenNumPeople.value)
   ) {
-    button.disabled = false;
     errorMessage.innerText = "";
+    button.disabled = false;
   }
 }
